@@ -10,7 +10,7 @@
 	</organization>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>8.1.0</vaadin.version>
+		<vaadin.version>8.1.4</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<!-- ZIP Manifest fields -->
 		<Implementation-Version>${project.version}</Implementation-Version>
@@ -89,6 +89,12 @@
 			<artifactId>vaadin-client-compiled</artifactId>
 			<version>${vaadin.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.18</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<repositories>
