@@ -15,13 +15,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.vaadin.easybinder.converters.NullStringToFloatConverter;
+import org.vaadin.easybinder.converters.NullStringToIntegerConverter;
+import org.vaadin.easybinder.converters.NullStringToLongConverter;
+
 import com.vaadin.data.Converter;
 import com.vaadin.data.Result;
 import com.vaadin.data.converter.LocalDateTimeToDateConverter;
 import com.vaadin.data.converter.LocalDateToDateConverter;
-import com.vaadin.data.converter.StringToFloatConverter;
-import com.vaadin.data.converter.StringToIntegerConverter;
-import com.vaadin.data.converter.StringToLongConverter;
 
 public class ConverterRegistry {
     static ConverterRegistry instance;
@@ -29,55 +30,21 @@ public class ConverterRegistry {
     protected Map<Pair<Class<?>, Class<?>>, Converter<?, ?>> converters = new HashMap<>();
 
     public static ConverterRegistry getInstance() {
-        if (instance == null) {
+        if (instance == null)
             instance = new ConverterRegistry();
-        }
         return instance;
     }
 
     private ConverterRegistry() {
-        Converter<String, Integer> c1 = Converter.from(e -> {
-            if (e.length() == 0)
-                return Result.error("Must be a number");
-            try {
-                return Result.ok(Integer.parseInt(e));
-            } catch (NumberFormatException ex) {
-                return Result.error("Must be a number");
-            }
-        }, e -> Integer.toString(e));
 
-        registerConverter(String.class, int.class, c1);
+        registerConverter(String.class, Integer.class, new NullStringToIntegerConverter(0, "Conversion failed"));
+        registerConverter(String.class, int.class, new NullStringToIntegerConverter(0, "Conversion failed"));
 
-        Converter<String, Long> c2 = Converter.from(e -> {
-            if (e.length() == 0)
-                return Result.error("Must be a number");
-            try {
-                return Result.ok(Long.parseLong(e));
-            } catch (NumberFormatException ex) {
-                return Result.error("Must be a number");
-            }
-        }, e -> Long.toString(e));
+        registerConverter(String.class, Long.class, new NullStringToLongConverter(0L, "Conversion failed"));
+        registerConverter(String.class, long.class, new NullStringToLongConverter(0L, "Conversion failed"));
 
-        registerConverter(String.class, long.class, c2);
-
-        Converter<String, Float> c3 = Converter.from(e -> {
-            if (e.length() == 0)
-                return Result.error("Must be a number");
-            try {
-                return Result.ok(Float.parseFloat(e));
-            } catch (NumberFormatException ex) {
-                return Result.error("Must be a number");
-            }
-        }, e -> Float.toString(e));
-
-        registerConverter(String.class, float.class, c3);
-
-        registerConverter(String.class, Integer.class,
-                new NullConverter<String>("").chain(new StringToIntegerConverter("Conversion failed")));
-        registerConverter(String.class, Long.class,
-                new NullConverter<String>("").chain(new StringToLongConverter("Conversion failed")));
-        registerConverter(String.class, Float.class,
-                new NullConverter<String>("").chain(new StringToFloatConverter("Conversion failed")));
+        registerConverter(String.class, Float.class, new NullStringToFloatConverter(0F, "Conversion failed"));
+        registerConverter(String.class, float.class, new NullStringToFloatConverter(0F, "Conversion failed"));
 
         registerConverter(String.class, Character.class,
                 Converter.from(

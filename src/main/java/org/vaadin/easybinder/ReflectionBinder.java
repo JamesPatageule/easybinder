@@ -30,6 +30,8 @@ import java.util.logging.Logger;
 
 import javax.validation.constraints.Min;
 
+import org.vaadin.easybinder.converters.NullConverter;
+
 import com.googlecode.gentyref.GenericTypeReflector;
 import com.vaadin.data.BeanPropertySet;
 import com.vaadin.data.Converter;

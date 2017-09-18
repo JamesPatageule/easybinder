@@ -11,6 +11,7 @@ package org.vaadin.easybinder;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +48,8 @@ public class ComponentFactoryRegistry {
         addBuildPattern(Number.class, e -> true, e -> new TextField(SharedUtil.camelCaseToHumanFriendly(e.getName())));
 
         addBuildPattern(int.class, e -> true, e -> new TextField(SharedUtil.camelCaseToHumanFriendly(e.getName())));
+        addBuildPattern(long.class, e -> true, e -> new TextField(SharedUtil.camelCaseToHumanFriendly(e.getName())));
+        addBuildPattern(float.class, e -> true, e -> new TextField(SharedUtil.camelCaseToHumanFriendly(e.getName())));
 
         addBuildPattern(Date.class, e -> true,
                 // e -> Arrays.asList(e.getAnnotations()).stream().filter(f -> f instanceof Temporal)
@@ -56,6 +59,8 @@ public class ComponentFactoryRegistry {
         addBuildPattern(LocalDate.class, e -> true,
                 e -> new DateField(SharedUtil.camelCaseToHumanFriendly(e.getName())));
         addBuildPattern(LocalDateTime.class, e -> true,
+                e -> new DateTimeField(SharedUtil.camelCaseToHumanFriendly(e.getName())));
+        addBuildPattern(ZonedDateTime.class, e -> true,
                 e -> new DateTimeField(SharedUtil.camelCaseToHumanFriendly(e.getName())));
 
         addBuildPattern(Boolean.class, e -> true,
