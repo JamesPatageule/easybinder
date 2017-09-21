@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import org.junit.Test;
 import org.vaadin.easybinder.BasicBinder;
-import org.vaadin.easybinder.NullConverter;
+import org.vaadin.easybinder.converters.NullConverter;
 
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.ui.TextField;
